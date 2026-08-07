@@ -1,0 +1,174 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{hyperref}
+% Required packages
+\usepackage[utf8]{inputenc} % UTF-8 character encoding
+\usepackage[english]{babel} % Support for English
+\usepackage{graphicx} % Insert images
+\usepackage{fancyhdr} % Custom headers and footers
+\usepackage{tocbibind} % Include bibliography in the table of contents
+\usepackage{hyperref}
+\usepackage{mathtools}  
+\usepackage{setspace} % Control line spacing
+\usepackage{enumitem} % Custom lists
+\usepackage{titlesec} % Format titles
+\usepackage{geometry} % Configure margins
+\usepackage{newtxtext,newtxmath} % Times New Roman font
+\usepackage{ragged2e} % Justified alignment
+\usepackage{url} % Display URLs
+\usepackage{array} % Improve tables
+\usepackage{pgfgantt} % Gantt charts
+\usepackage{lscape} % Landscape mode pages
+\usepackage{xcolor} % Custom colors
+\usepackage{verbatim} % Verbatim environment
+\usepackage{listings} % Display source code
+
+% Configuración de márgenes
+\geometry{
+	a4paper,
+	left=3.5cm,
+	right=2.5cm,
+	top=2.5cm,
+	bottom=2.5cm
+}
+
+% Line spacing
+\onehalfspacing
+
+% Section title formatting
+\titleformat{\section}
+{\normalfont\bfseries\large} % Section format: normal, bold, 14pt (LARGE)
+{\thesection}{1em}{\MakeUppercase} % Uppercase
+\titlespacing*{\section}{0pt}{6pt}{18pt} % Section spacing: 6pt before, 18pt after
+\newcommand{\sectionbreak}{\clearpage} % New page for each section
+
+% Subsection title formatting
+\titleformat{\subsection}
+{\normalfont\bfseries\normalsize} % Subsection format: normal, bold, 12pt (Large)
+{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{6pt}{18pt} % Subsection spacing: 6pt before, 18pt after
+
+% Subsubsection title formatting
+\titleformat{\subsubsection}
+{\normalfont\bfseries\normalsize} % Subsubsection format: normal, bold, 10pt (large)
+{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{6pt}{18pt} % Subsubsection spacing: 6pt before, 18pt after
+
+% Formatting for Abstract and Summary
+\titleformat{name=\section,numberless}[block]
+{\normalfont\bfseries\normalsize\centering}
+{}
+{0pt}
+{}
+
+% Capitalize titles
+\addto\captionsenglish{
+	\renewcommand{\contentsname}{Table of Contents}
+	\renewcommand{\listfigurename}{List of Figures}
+	\renewcommand{\listtablename}{List of Tables}
+	\renewcommand{\tablename}{Table}
+	\renewcommand{\refname}{References}
+}
+
+% Header and footer configuration
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead{} % Remove header content
+\fancyfoot[R]{\thepage} % Page number on the bottom right
+\renewcommand{\headrulewidth}{0pt} % Remove horizontal line in header
+\renewcommand{\footrulewidth}{0pt} % Remove horizontal line in footer
+
+% Redefine Roman numeral page numbering for preliminary pages
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\thepage}{\roman{page}}
+}
+
+
+\begin{document}
+	
+	% Include cover page
+	\include{sections/cover}
+	
+	% Use Roman numerals for preliminary pages
+	\clearpage
+	\pagenumbering{roman}    
+	\setcounter{page}{2} % Start at ii
+	\renewcommand{\thepage}{\roman{page}}
+	
+	% Approval Page (commented)
+	%\pagestyle{plain}
+	%\include{sections/approval_page}
+	%\thispagestyle{plain} % Ensure page number appears
+	
+	\newpage
+	
+	% Compliance Declaration (commented)
+	%\pagestyle{plain}
+	%\include{sections/compliance_declaration}
+	%\thispagestyle{plain} % Ensure page number appears
+	
+	% Table of Contents (excluded from TOC itself)
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+	\tableofcontents
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+	\newpage
+	
+	% List of Tables (excluded from TOC itself)
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+	\listoftables
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+	\newpage
+	
+	% List of Figures (excluded from TOC itself)
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+	\listoffigures
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+	\newpage
+	
+	% Abstract or Summary
+	\pagestyle{plain}
+	\include{sections/abstract}
+	\thispagestyle{plain}
+	\newpage
+	
+	% Switch to Arabic numerals
+	\pagenumbering{arabic}
+	\fancyfoot[R]{\thepage} % Page number on bottom right
+	
+	% Justify text
+	\justifying
+	
+	% Remove paragraph indentation
+	\setlength{\parindent}{0pt}
+	
+	% Set paragraph spacing to 6 points
+	\setlength{\parskip}{6pt} 
+	
+	% Section 1: Introduction
+	\include{chapters/introduction}
+	
+	% Section 2: Fundamental Concepts
+	\include{chapters/fundamental_concepts}
+	
+	% Section 3: Materials and Methods
+	\include{chapters/materials_and_methods}
+	
+	% Section 4: Data Analysis
+	\include{chapters/data_analysis}
+	
+	% Section 5: Anticipated Aspects
+	\include{chapters/anticipated_aspects}
+	
+	% Section 6: Timeline
+	\include{chapters/timeline}
+	
+	% References
+	\bibliographystyle{IEEEtran}
+	\bibliography{bibliography/references}
+	
+	% Section 8: Appendices
+	\addcontentsline{toc}{section}{Appendices} % Add Appendices to TOC
+	\include{chapters/appendices}
+	
+\end{document}
